@@ -2,41 +2,52 @@ const https = require("https");
 const express = require("express");
 const middleware = require("@line/bot-sdk").middleware;
 const JSONParseError = require("@line/bot-sdk").JSONParseError;
-const SignatureValidationFailed =
-  require("@line/bot-sdk").SignatureValidationFailed;
+const SignatureValidationFailed = require("@line/bot-sdk")
+  .SignatureValidationFailed;
 
 const app = express();
 
 const config = {
   channelAccessToken:
-    "wplhq4wpByjPcScpnlfrwPrXjeakp+ptm69Dp9xOamULM1SCdOu8WlFGcZmMnDLW7uX9ItH8FvGwRmqwjRLKPU1ts3z1b1oE6qRrLDh/zJS7siZRtd91mXc9CE9+8C5KSwh4FAxm4lHyn712hukgTgdB04t89/1O/w1cDnyilFU=",
-  channelSecret: "d07fe29a95cae664ef8e47ac26c2239f",
+    "eixCDwO9gpWOEPVN2/X5G0FUuDpUzREf1152/mfHBGclafT25rWItvCE/NUcGLoS4yfDnSn3GKE/F3bONR8dlS7a/mh9h1uT1ki/CGlJfmGB3aReURLKnzSStDZQI2zlYdxZ1qYLSwopB7mMArrpWwdB04t89/1O/w1cDnyilFU=",
+  channelSecret: "8a7877200ffb01b860ddc365fed4e735",
 };
 
 let TOKEN =
-  "wplhq4wpByjPcScpnlfrwPrXjeakp+ptm69Dp9xOamULM1SCdOu8WlFGcZmMnDLW7uX9ItH8FvGwRmqwjRLKPU1ts3z1b1oE6qRrLDh/zJS7siZRtd91mXc9CE9+8C5KSwh4FAxm4lHyn712hukgTgdB04t89/1O/w1cDnyilFU=";
-
+  "eixCDwO9gpWOEPVN2/X5G0FUuDpUzREf1152/mfHBGclafT25rWItvCE/NUcGLoS4yfDnSn3GKE/F3bONR8dlS7a/mh9h1uT1ki/CGlJfmGB3aReURLKnzSStDZQI2zlYdxZ1qYLSwopB7mMArrpWwdB04t89/1O/w1cDnyilFU=";
 app.use(middleware(config));
 
-app.post("/webhook", function (req, res) {
+app.post("/webhook", function(req, res) {
   res.send("HTTP POST request sent to the webhook URL!");
   // If the user sends a message to your bot, send a reply message
   if (req.body.events[0].type === "message") {
     // Message data, must be stringified
-    const dataString = JSON.stringify({
-      replyToken: req.body.events[0].replyToken,
-      messages: [
-        {
-          type: "text",
-          text: "Hello, user",
-        },
-        {
-          type: "text",
-          text: "May I help you?",
-        },
-      ],
-    });
-
+    console.log(req.body.events[0]);
+    if (
+      req.body.events[0].message.type === "text" &&
+      req.body.events[0].message.text === "ขอดูเมนูอาหาร"
+    ) {
+      dataString = JSON.stringify({
+        replyToken: req.body.events[0].replyToken,
+        messages: [
+          {
+            type: "text",
+            text: "นี่เลย!!! เมนูของร้านเรา",
+          },
+        ],
+      });
+    } else {
+      dataString = JSON.stringify({
+        replyToken: req.body.events[0].replyToken,
+        messages: [
+          {
+            type: "text",
+            text: "ถ้าอยากสั่งข้าวกดปุ่มสั่งอาหารด้านล่างเลยครับ หรือว่าอยากจะดูเมนูก่อนก็ได้นะ",
+          },
+          
+        ],
+      });
+    }
     // Request header
     const headers = {
       "Content-Type": "application/json",
