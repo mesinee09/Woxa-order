@@ -60,93 +60,48 @@ export default function Order() {
   };
 
   return (
-    <section className="relative flex flex-wrap lg:h-screen lg:items-center">
-      <div>
+
+    <section className="overflow-x-auto">
+      <h1 className="m-10 text-lg font-bold">WOXA KITCHEN</h1>
+      {/* <div>
         {orderArray.map((order) => (
           <>
             <h1 className="m-5"> อาหารที่คุณสั่งคือ {order.order}</h1>
           </>
         ))}
-      </div>
+      </div> */}
 
 
-      <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <table class="w-full text-sm text-left text-gray-500 ">
-          <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
+      <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <table className="w-full text-sm text-left text-gray-500 ">
+          <thead className="text-sm text-gray-700 uppercase bg-gray-50 ">
             <tr>
-              <th scope="col" class="px-6 py-3">
+              <th scope="col" className="px-6 py-3">
                 คิวที่
               </th>
-              <th scope="col" class="px-6 py-3">
+              <th scope="col" className="px-6 py-3">
                 ชื่อผู้สั่ง
               </th>
-              <th scope="col" class="px-6 py-3">
+              <th scope="col" className="px-6 py-3">
                 เมนูที่สั่ง
               </th>
-              <th scope="col" class="px-6 py-3">
-                Category
+              <th scope="col" className="px-6 py-3">
+                สถานะ
               </th>
-              <th scope="col" class="px-6 py-3">
-                Price
-              </th>
-              <th scope="col" class="px-6 py-3">
-                <span class="sr-only">Edit</span>
+              <th scope="col" className="px-6 py-3">
+                <span className="sr-only">Edit</span>
               </th>
             </tr>
           </thead>
-          <tbody>
-            <tr class="bg-white border-b  hover:bg-gray-50 ">
-              <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                Apple MacBook Pro 17"
-              </th>
-              <td class="px-6 py-4">
-                Sliver
-              </td>
-              <td class="px-6 py-4">
-                {order.order}
-              </td>
-              <td class="px-6 py-4">
-                $2999
-              </td>
-              <td class="px-6 py-4 text-right">
-                <a href="#" class="font-medium text-blue-600 hover:underline">Edit</a>
-              </td>
+          {orderArray.map((order) => (
+            <tr className="bg-white border-b  hover:bg-gray-50">
+              <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"> # </td>
+              <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"> # name</td>
+              <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{order.order}</td>
+              <button className="font-medium py-2 px-5 bg-green-500 hover:bg-green-400 text-white rounded-lg mt-2 mr-10">เสร็จแล้ว</button>
+              <button className="font-medium py-2 px-5 bg-red-600 hover:bg-red-400 text-white rounded-lg mr-10">ไม่มีเมนูนี้</button>
             </tr>
-            <tr class="bg-white border-b  hover:bg-gray-50 ">
-              <th scope="row" class="px-6 py-4 font-medium text-gray-900  whitespace-nowrap">
-                Microsoft Surface Pro
-              </th>
-              <td class="px-6 py-4">
-                White
-              </td>
-              <td class="px-6 py-4">
-                Laptop PC
-              </td>
-              <td class="px-6 py-4">
-                $1999
-              </td>
-              <td class="px-6 py-4 text-right">
-                <a href="#" class="font-medium text-blue-600 hover:underline">Edit</a>
-              </td>
-            </tr>
-            <tr class="bg-white hover:bg-gray-50 ">
-              <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                Magic Mouse 2
-              </th>
-              <td class="px-6 py-4">
-                Black
-              </td>
-              <td class="px-6 py-4">
-                Accessories
-              </td>
-              <td class="px-6 py-4">
-                $99
-              </td>
-              <td class="px-6 py-4 text-right">
-                <a href="#" class="font-medium text-blue-600 hover:underline">Edit</a>
-              </td>
-            </tr>
-          </tbody>
+          ))}
         </table>
       </div>
 
