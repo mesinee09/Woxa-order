@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-database.js"></script>
+    
+    <title>Order</title>
+  </head>
+  <body>
+    <ul id="list"></ul>
+
+    
+  </body>
+
+  <!-- -----firebase----- -->
+  <script id="Order">
+    var firebaseConfig = {
+      apiKey: "AIzaSyBCVZeiDu-No6WdEz446S7c3ky52Bg_ifM",
+      qauthDomain: "woxa-order.firebaseapp.com",
+      databaseURL: "https://woxa-order-default-rtdb.firebaseio.com",
+      projectId: "woxa-order",
+      storageBucket: "woxa-order.appspot.com",
+      messagingSenderId: "1074829849307",
+      appId: "1:1074829849307:web:99cdae54d9257f9640d2fe",
+      measurementId: "G-KHECMMHG70",
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    var orderNo = 0;
+
+    function ListOrder(name, food) {
+      var ul = document.getElementById("list");
+      var header = document.createElement("h2");
+
+      var _name = document.createElement("li");
+      var _food = document.createElement("li");
+
+      header.innerHTML = "Order-" + ++orderNo;
+
+      _name.innerHTML = "Name :" + name;
+      _food.innerHTML = "Food :" + food;
+
+      ul.appendChild(header);
+      ul.appendChild(_name);
+      ul.appendChild(_food);
+    }
+
+    function FeatchAllData() {
+      firebase
+        .database()
+        .ref("order")
+        .once("value", function (snapshot) {
+          snapshot.forEach(function (ChildSnapshot) {
+            let name = ChildSnapshot.val().Name;
+            let food = ChildSnapshot.val().Food;
+            ListOrder(name, food);
+          });
+        });
+    }
+
+    window.onload(FeatchAllData());
+  </script>
+</html>
