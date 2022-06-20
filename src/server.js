@@ -6,6 +6,7 @@ const SignatureValidationFailed = require("@line/bot-sdk")
   .SignatureValidationFailed;
 
 const app = express();
+const port = process.env.PORT || 4000;
 
 const config = {
   channelAccessToken:
@@ -17,11 +18,14 @@ let TOKEN =
   "eixCDwO9gpWOEPVN2/X5G0FUuDpUzREf1152/mfHBGclafT25rWItvCE/NUcGLoS4yfDnSn3GKE/F3bONR8dlS7a/mh9h1uT1ki/CGlJfmGB3aReURLKnzSStDZQI2zlYdxZ1qYLSwopB7mMArrpWwdB04t89/1O/w1cDnyilFU=";
 app.use(middleware(config));
 
+// Waiting user response to send reply message
 app.post("/webhook", function(req, res) {
   res.send("HTTP POST request sent to the webhook URL!");
   // If the user sends a message to your bot, send a reply message
   if (req.body.events[0].type === "message") {
     // Message data, must be stringified
+    let userId = req.body.events[0].source.userId;
+    console.log(userId);
     console.log(req.body.events[0]);
     if (
       req.body.events[0].message.type === "text" &&
@@ -34,6 +38,12 @@ app.post("/webhook", function(req, res) {
             type: "text",
             text: "นี่เลย!!! เมนูของร้านเรา",
           },
+          {
+            type: "image",
+            //TODO: find image url
+            originalContentUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/LINE_logo.svg/1200px-LINE_logo.svg.png",
+            previewImageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/LINE_logo.svg/1200px-LINE_logo.svg.png",
+          },
         ],
       });
     } else {
@@ -42,9 +52,9 @@ app.post("/webhook", function(req, res) {
         messages: [
           {
             type: "text",
-            text: "ถ้าอยากสั่งข้าวกดปุ่มสั่งอาหารด้านล่างเลยครับ หรือว่าอยากจะดูเมนูก่อนก็ได้นะ",
+            text:
+              "ถ้าอยากสั่งข้าวกดปุ่มสั่งอาหารด้านล่างเลยครับ หรือถ้าอยากจะดูเมนูก่อนก็กดดูเมนูได้เลยนะ",
           },
-          
         ],
       });
     }
@@ -58,6 +68,15 @@ app.post("/webhook", function(req, res) {
     const webhookOptions = {
       hostname: "api.line.me",
       path: "/v2/bot/message/reply",
+      method: "POST",
+      headers: headers,
+      body: dataString,
+    };
+
+    //  Chef notify to user
+    const chefWebhookOptions = {
+      hostname: "api.line.me",
+      path: "/v2/bot/message/push",
       method: "POST",
       headers: headers,
       body: dataString,
@@ -92,5 +111,5 @@ app.use((err, req, res, next) => {
   next(err); // will throw default 500
 });
 
-console.log("ASASASASASAS");
-app.listen(4000);
+console.log("webhook is running");
+app.listen(port);
