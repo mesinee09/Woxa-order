@@ -103,7 +103,7 @@ export default function Order() {
                 Sliver
               </td>
               <td class="px-6 py-4">
-                Laptop
+                {order.order}
               </td>
               <td class="px-6 py-4">
                 $2999
