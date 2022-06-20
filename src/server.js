@@ -9,34 +9,57 @@ const app = express();
 
 const config = {
   channelAccessToken:
-    "wplhq4wpByjPcScpnlfrwPrXjeakp+ptm69Dp9xOamULM1SCdOu8WlFGcZmMnDLW7uX9ItH8FvGwRmqwjRLKPU1ts3z1b1oE6qRrLDh/zJS7siZRtd91mXc9CE9+8C5KSwh4FAxm4lHyn712hukgTgdB04t89/1O/w1cDnyilFU=",
-  channelSecret: "d07fe29a95cae664ef8e47ac26c2239f",
+    "VGiLhUm7XgQc1PTql/7G3Hmtb6dcuH4qsIjujHuXRuNzNfKYcvY9Y/LUVtSDLedp7uX9ItH8FvGwRmqwjRLKPU1ts3z1b1oE6qRrLDh/zJQvVGAdHvS6nbVgmfY2NwA1r+nKspZRomAMbhDaY15h6QdB04t89/1O/w1cDnyilFU=",
+  channelSecret: "bff52c61db6e0894bfeda1147f2366ed",
 };
 
 let TOKEN =
-  "wplhq4wpByjPcScpnlfrwPrXjeakp+ptm69Dp9xOamULM1SCdOu8WlFGcZmMnDLW7uX9ItH8FvGwRmqwjRLKPU1ts3z1b1oE6qRrLDh/zJS7siZRtd91mXc9CE9+8C5KSwh4FAxm4lHyn712hukgTgdB04t89/1O/w1cDnyilFU=";
-
+  "VGiLhUm7XgQc1PTql/7G3Hmtb6dcuH4qsIjujHuXRuNzNfKYcvY9Y/LUVtSDLedp7uX9ItH8FvGwRmqwjRLKPU1ts3z1b1oE6qRrLDh/zJQvVGAdHvS6nbVgmfY2NwA1r+nKspZRomAMbhDaY15h6QdB04t89/1O/w1cDnyilFU=";
 app.use(middleware(config));
 
+// Waiting user response to send reply message
 app.post("/webhook", function (req, res) {
   res.send("HTTP POST request sent to the webhook URL!");
+
   // If the user sends a message to your bot, send a reply message
   if (req.body.events[0].type === "message") {
     // Message data, must be stringified
-    const dataString = JSON.stringify({
-      replyToken: req.body.events[0].replyToken,
-      messages: [
-        {
-          type: "text",
-          text: "Hello, user",
-        },
-        {
-          type: "text",
-          text: "May I help you?",
-        },
-      ],
-    });
+    let userId = req.body.events[0].source.userId;
+    console.log(userId);
+    console.log(req.body.events[0]);
+    var dataString;
+    if (
+      req.body.events[0].message.type === "text" &&
+      req.body.events[0].message.text === "ขอดูเมนูอาหาร"
+    ) {
+      dataString = JSON.stringify({
+        replyToken: req.body.events[0].replyToken,
+        messages: [
+          {
+            type: "text",
+            text: "นี่เลย!!! เมนูของร้านเรา",
+          },
+          {
+            type: "image",
+            //TODO: find menu image url
+            originalContentUrl: "https://i.postimg.cc/Nj9kPtkF/received-987379918437359.jpg",
+            previewImageUrl: "https://i.postimg.cc/Nj9kPtkF/received-987379918437359.jpg",
+          },
+        ],
+      });
+    } else {
+      dataString = JSON.stringify({
+        replyToken: req.body.events[0].replyToken,
+        messages: [
+          {
+            type: "text",
+            text:
+              "ถ้าอยากสั่งข้าวกดปุ่มสั่งอาหารด้านล่างเลยครับ หรือถ้าอยากจะดูเมนูก่อนก็กดดูเมนูได้เลยนะ",
+          },
+        ],
+      });
 
+    }
     // Request header
     const headers = {
       "Content-Type": "application/json",
@@ -51,6 +74,15 @@ app.post("/webhook", function (req, res) {
       headers: headers,
       body: dataString,
     };
+
+    //  Chef notify to user
+    // const chefWebhookOptions = {
+    //   hostname: "api.line.me",
+    //   path: "/v2/bot/message/push",
+    //   method: "POST",
+    //   headers: headers,
+    //   body: dataString,
+    // };
 
     // Define request
     const request = https.request(webhookOptions, (res) => {
