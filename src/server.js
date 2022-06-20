@@ -40,9 +40,9 @@ app.post("/webhook", function(req, res) {
           },
           {
             type: "image",
-            //TODO: find image url
-            originalContentUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/LINE_logo.svg/1200px-LINE_logo.svg.png",
-            previewImageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/LINE_logo.svg/1200px-LINE_logo.svg.png",
+            //TODO: find menu image url
+            originalContentUrl: "https://i.postimg.cc/Nj9kPtkF/received-987379918437359.jpg",
+            previewImageUrl: "https://i.postimg.cc/Nj9kPtkF/received-987379918437359.jpg",
           },
         ],
       });
