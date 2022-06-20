@@ -2,10 +2,11 @@ const https = require("https");
 const express = require("express");
 const middleware = require("@line/bot-sdk").middleware;
 const JSONParseError = require("@line/bot-sdk").JSONParseError;
-const SignatureValidationFailed =
-  require("@line/bot-sdk").SignatureValidationFailed;
+const SignatureValidationFailed = require("@line/bot-sdk")
+  .SignatureValidationFailed;
 
 const app = express();
+const port = process.env.PORT || 4000;
 
 const config = {
   channelAccessToken:
@@ -58,7 +59,6 @@ app.post("/webhook", function (req, res) {
           },
         ],
       });
-
     }
     // Request header
     const headers = {
@@ -113,5 +113,5 @@ app.use((err, req, res, next) => {
   next(err); // will throw default 500
 });
 
-console.log("ASASASASASAS");
-app.listen(4000);
+console.log("webhook is running");
+app.listen(port);
