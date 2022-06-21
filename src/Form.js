@@ -1,35 +1,13 @@
 import { db } from "./firebase";
-import { set, ref, onValue } from "firebase/database";
+import { uid } from "uid";
+import { set, ref, onValue} from "firebase/database";
 import { useState, useEffect } from "react";
-import liff from "@line/liff";
 
 export default function Form() {
   const [order, setOrder] = useState("");
   const [orderArray, setOrderArray] = useState([]);
-  const [name, setName] = useState("");
-  const [userLineID, setUserLineID] = useState("");
-
-  async function fetchUserData() {
-    //TODO: store line user name
-    await liff
-      .init({
-        liffId: "1657227261-LoEv9bAp",
-        withLoginOnExternalBrowser: true,
-      })
-      .then(() => {
-        let getProfile = liff.getProfile();
-        setName(getProfile.displayName);
-        setUserLineID(getProfile.userId);
-      })
-      .catch((err) => {
-        console.log(err.code, err.message);
-        liff.closeWindow();
-      });
-  }
-
-  useEffect(() => {
-    fetchUserData();
-  }, []);
+  const [isEdit, setIsEdit] = useState(false);
+  const [tempId, setTempId] = useState("");
 
   const handleOrderChange = (e) => {
     setOrder(e.target.value);
@@ -50,15 +28,17 @@ export default function Form() {
 
   //write
   const writeToDatabase = () => {
-    const id = userLineID;
+    const id = uid();
     set(ref(db, `/${id}`), {
       order: order,
       id,
-      name
     });
 
     setOrder("");
   };
+
+
+
 
   return (
     <section className="relative flex flex-wrap lg:h-screen lg:items-center">
