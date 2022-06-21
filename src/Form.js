@@ -64,7 +64,7 @@ export default function Form() {
     <section className="relative flex flex-wrap lg:h-screen lg:items-center">
       <div className="w-full px-4 py-12 lg:w-1/2 sm:px-6 lg:px-8 sm:py-16 lg:py-24">
         <div className="max-w-lg mx-auto text-center">
-          <h1 className="text-2xl font-bold sm:text-3xl">WOXA KITCHEN</h1>
+          <h1 className="text-2xl text-blue-700 font-bold sm:text-3xl">WOXA KITCHEN</h1>
 
           <p className="mt-4 text-gray-500">สั่งอาหารได้เลย</p>
         </div>
@@ -77,44 +77,15 @@ export default function Form() {
                 name="order"
                 value={order}
                 onChange={handleOrderChange}
-                className="w-full p-4 pr-12 text-sm border-gray-500 rounded-lg bg-gray-100 shadow-sm"
+                className="w-full p-4 pr-12 text-sm border-2  rounded-lg  bg-gray-100 shadow-sm"
                 placeholder="กะเพราทะเล + ไข่ดาว"
               />
-
-              {
-                /* {isEdit ? (
-                <>
-                  <button onClick={handleSubmitChange}>Submit Change</button>
-                  <button
-                    onClick={() => {
-                      setIsEdit(false);
-                      setOrder("");
-                    }}
-                  >
-                  </button>
-                </>
-              ) : (*/
-                <button
-                  className="inline-block mt-5 px-5 py-3 ml-3 text-sm font-medium text-white bg-blue-500 rounded-lg"
-                  onClick={writeToDatabase}
-                >
-                  สั่งอาหาร
-                </button>
-                /* )}
-              {orderArray.map((order) => (
-                <>
-                  <h1 className="m-5"> อาหารที่คุณสั่งคือ {order.order}</h1>
-                  <button
-                    className="inline-block m-5 px-5 py-3 ml-3 text-sm font-medium text-white bg-green-500 rounded-lg"
-                    onClick={() => handleUpdate(order)}>update
-                  </button>
-                  <button
-                    className="inline-block m-5 px-5 py-3 ml-3 text-sm font-medium text-white bg-red-500 rounded-lg"
-                    onClick={() => handleDelete(order)}>delete
-                  </button>
-                </>
-              ))} */
-              }
+              <button
+                className="inline-block mt-5 px-5 py-3 ml-3 text-sm font-medium text-white bg-blue-500 rounded-lg"
+                onClick={writeToDatabase}
+              >
+                สั่งอาหาร
+              </button>
             </div>
           </div>
         </form>
