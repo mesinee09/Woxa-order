@@ -4,9 +4,6 @@ import { useState, useEffect } from "react";
 import liff from "@line/liff";
 // import { uid } from "uid";
 
-<<<<<<< Updated upstream
-const root = ReactDOM.createRoot(document.getElementById("root"));
-=======
 export default function App() {
   const [order, setOrder] = useState("");
   const [name, setName] = useState("");
@@ -49,7 +46,6 @@ export default function App() {
     });
     setOrder("");
   };
->>>>>>> Stashed changes
 
   return (
     <section className="relative flex flex-wrap lg:h-screen lg:items-center">
@@ -59,10 +55,6 @@ export default function App() {
             WOXA KITCHEN
           </h1>
 
-<<<<<<< Updated upstream
-root.render(<App />);
-export default App;
-=======
           <p className="mt-4 text-gray-500">สั่งอาหารได้เลย</p>
         </div>
 
@@ -97,4 +89,3 @@ export default App;
     </section>
   );
 }
->>>>>>> Stashed changes
