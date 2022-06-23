@@ -2,7 +2,7 @@ import { db } from "./firebase";
 import { set, ref } from "firebase/database";
 import { useState, useEffect } from "react";
 import liff from "@line/liff";
-// import { uid } from "uid";
+import axios from "axios";
 
 export default function App() {
   const [order, setOrder] = useState("");
@@ -26,6 +26,17 @@ export default function App() {
       });
   }
 
+  async function receiveOrder(userId,order) {
+    try {
+      await axios.post("https://woxa-food-order.herokuapp.com/receive-order", {
+        id: userId,
+        order: order,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   useEffect(() => {
     fetchUserData();
   }, []);
@@ -37,6 +48,7 @@ export default function App() {
 
   //write
   const writeToDatabase = (e) => {
+    receiveOrder(userLineID,order);
     e.preventDefault();
     const timestamp = Date.now();
     set(ref(db, `/${timestamp}`), {
