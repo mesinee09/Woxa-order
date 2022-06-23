@@ -26,12 +26,13 @@ export default function App() {
       });
   }
 
-  async function receiveOrder(userId,order) {
+  async function receiveOrder(userId, order) {
     try {
       await axios.post("https://woxa-food-order.herokuapp.com/receive-order", {
         id: userId,
         order: order,
       });
+      liff.closeWindow();
     } catch (err) {
       console.log(err);
     }
@@ -42,13 +43,11 @@ export default function App() {
   }, []);
 
   const handleOrderChange = (e) => {
-    console.log(e.value);
     setOrder(e.target.value);
   };
 
   //write
   const writeToDatabase = (e) => {
-    receiveOrder(userLineID,order);
     e.preventDefault();
     const timestamp = Date.now();
     set(ref(db, `/${timestamp}`), {
@@ -56,6 +55,7 @@ export default function App() {
       id: userLineID,
       name: name,
     });
+    receiveOrder(userLineID, order);
     setOrder("");
   };
 
