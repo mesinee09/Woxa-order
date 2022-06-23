@@ -54,6 +54,7 @@ export default function App() {
       order: order,
       id: userLineID,
       name: name,
+      time: timestamp
     });
     receiveOrder(userLineID,order);
     setOrder("");
