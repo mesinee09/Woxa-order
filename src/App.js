@@ -25,7 +25,7 @@ export default function App() {
         liff.closeWindow();
       });
   }
-
+// TODO: LIFF Must Be Closed Faster to Sent receive order to user
   async function receiveOrder(userId,order) {
     try {
       await axios.post("https://woxa-food-order.herokuapp.com/receive-order", {
