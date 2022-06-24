@@ -25,7 +25,7 @@ export default function App() {
         console.log(err.code, err.message);
         liff.closeWindow();
       });
-    
+
   }
   // TODO: LIFF Must Be Closed Faster to Sent receive order to user
   async function receiveOrder(userId, order) {
@@ -46,7 +46,7 @@ export default function App() {
 
   const handleOrderChange = (e) => {
     setOrder(e.target.value);
-    
+
   };
 
   //write
@@ -105,7 +105,7 @@ export default function App() {
       <div className="relative w-full h-64 sm:h-96 lg:w-1/2 lg:h-full">
         <img
           className="absolute inset-0 object-cover w-full h-full"
-          src="https://baansongthaimhs.com/wp-content/uploads/2021/09/%E0%B9%80%E0%B8%A1%E0%B8%99%E0%B8%B9%E0%B8%81%E0%B8%A5%E0%B8%B2%E0%B8%87%E0%B8%A7%E0%B8%B1%E0%B8%99_Page_03.jpg"
+          src="https://i.postimg.cc/jStmpzPG/menu.jpg"
           alt=""
         />
       </div>
